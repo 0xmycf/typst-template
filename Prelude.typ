@@ -34,11 +34,10 @@
 * Text
 ********************************************************************************/
   set text(
-     font: ( "KPRoman"
-           , "EBGaramond"
+     font: ( "KpRoman"
            , "Courier New"
            , "Times New Roman"
-           , "FiraCode"
+           , "Fira Code"
            , "Noto Sans CJK TC"
            , "Adobe Kaiti Std"
            )
@@ -50,9 +49,16 @@
     , ligatures: true
     , number-type: "lining" // I like this more in text
     , slashed-zero: true
-    , fractions: true // displays 3/4 as one glyph
+    , fractions: false // displays 3/4 as one glyph
     , size: 12pt
   )
+
+  show raw: set text(
+                  font: ( "Fira Code"
+                        )
+                // buggy otherwise
+                , fractions: false
+                    )
 
 /********************************************************************************
 * paragraphs
@@ -62,17 +68,26 @@
 
   // idk if this is the proper way
 
-  /* show heading.where( */
-  /*   level: 1 */
-  /* ): set block(spacing: 0.9em) */
+  show heading.where(
+    level: 1
+    ): it => {
+      it
+      v(0.4em)
+    }
 
-  /* show heading.where( */
-  /*   level: 2 */
-  /* ): set block(spacing: 0.7em) */
+  show heading.where(
+    level: 2
+    ): it => {
+      it
+      v(0.3em)
+    }
 
-  /* show heading.where( */
-  /*   level: 3 */
-  /* ): set block(below: 0.6em) */
+  show heading.where(
+    level: 3
+  ): it => {
+      it
+      v(0.2em)
+    }
 
   show heading.where(
     level: 4
@@ -116,4 +131,5 @@
   bibliography(bibPath)
 }
 
+// this is not the correct way to do this
 #let citep(..keys) = cite(..keys, brackets: false)

@@ -1,6 +1,6 @@
 #import "./Prelude.typ": applyStyle, citep
 #show: doc => applyStyle( author: "Me Myself"
-                        , title: "Lorem in the Context of Ignorance"
+                        , title: "Lorem in the Context of Me"
                         , doc
                         )
 
@@ -12,11 +12,13 @@
 -- the type signature can be omitted.
 main :: IO ()
 main = do -- do notation
-  args <- getArgs
-  forM_ args putStrLn -- printing the arguments
-  if length args == 0
+  args <- getArgs <&> T.pack -- imports omitted!
+  let xs = 12345678910
+  forM_ args (putStrLn . T.unpack) -- printing the arguments
+  if length args == 0 -- could use null here
     then error "give a filename..."
-    else otherMain (head args) -- here otherMain is some function in scope
+    -- here otherMain is some function in scope
+    else otherMain (head args)
 ```
 
 == Some Lorem Text in other languages
@@ -56,10 +58,46 @@ Lorem Ipsum自15世纪以来一直是行业的标准虚拟文本。
 中文的Lorem Ipsum通常是随机生成的，但也可以使用一些实际的文本来代替，
 
 In here we cite @citekeyA
-  and here we cite them in text: #citep("citekeyA")
+    and here we cite them in text: #citep("citekeyA").
+  Note that the above citation should be in _apa_ style but isn't (properly)!
 
 #pagebreak()
 
 = Another Chapter
 
-#lorem(30)
+#import sym: *
+#import math: limits
+#let d = dot.op
+#let implies = sym.arrow.r.double
+
+In here we display some math.
+  We want to show that if $#forall x #sym.in #RR " : " x #d 0 = 0$.
+
+*Proof:*\
+  $ &x #d 0          &= 0 \
+    &x #d (0 + 0)    &= 0 \
+    &x #d 0 + x #d 0 &= 0 $
+
+This is true due to $0$ being the additive neutral of $(+)$
+    and the distributive law.
+
+#h(1fr) $qed$
+
+== Testing some numbers!
+
+12345678910
+
++ 0
++ 1
++ 2
++ 3
++ 5
++ 6
++ 7
++ 8
++ 9
++ 10
++ -1
++ 11
++ 1/3
+
